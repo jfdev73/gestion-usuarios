@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head th:replace="layout/layout :: head">
+</head>
+<body>
+	<header th:replace="layout/layout :: header"> </header>
+	<div class="container">
+		<h1 th:text="${title}" class="text-primary mt-2"></h1>
+
+		<div th:object="${cliente}" th:remove="tag">
+			<ul th:if="${#fields.hasErrors('*')}"
+				class=" container alert alert-danger ">
+				<li th:each="err: ${#fields.errors('*')}" th:text="${err}"
+					class="ms-3"></li>
+			</ul>
+		</div>
+
+		<form th:action="@{/clientes/form}" method="post"
+			th:object="${cliente}" class="mt-5" enctype="multipart/form-data">
+
+			<div class="form-group row mb-2">
+				<label for="nombre" class="col-form-label col-sm-2">Nombre:</label>
+				<div class="col-sm-4">
+					<input type="text" name="nombre" id="nombre" class="form-control"
+						th:field="*{nombre}" th:errorclass="is-invalid">
+					<small class="form-text text-danger"
+						th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+				</div>
+
+			</div>
+
+
+
+
+			<div class="form-group row mb-2">
+				<label for="apellido-paterno" class="col-form-label col-sm-2">Apellido
+					Paterno:</label>
+				<div class="col-sm-4">
+					<input type="text" id="apellido-paterno" class="form-control"
+						th:field="*{apellidoPaterno}" th:errorclass="is-invalid">
+					<small class="form-text text-danger"
+						th:if="${#fields.hasErrors('apellidoPaterno')}"
+						th:errors="*{apellidoPaterno}"></small>
+				</div>
+
+			</div>
+
+			<div class="form-group row mb-2">
+				<label for="apellido-materno" class="col-form-label col-sm-2">Apellido
+					Materno:</label>
+				<div class="col-sm-4">
+					<input type="text" id="apellido-materno" class="form-control"
+						th:field="*{apellidoMaterno}"
+						th:errorclass="'form-control is-invalid'">
+					<small class="form-text text-danger"
+						th:if="${#fields.hasErrors('apellidoMaterno')}"
+						th:errors="*{apellidoMaterno}"></small>
+				</div>
+
+			</div>
+
+			<div class="form-group row mb-2">
+				<label for="email" class="col-form-label col-sm-2">Email: </label>
+				<div class="col-sm-4">
+					<input type="email" id="email" class="form-control"
+						th:field="*{email}" th:errorclass="'is-invalid'">
+					<small class="form-text text-danger"
+						th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+				</div>
+
+			</div>
+
+
+			<div class="form-group row mb-2">
+				<label for="fecha-nacimiento" class="col-form-label col-sm-2">Fecha
+					de Nacimiento: </label>
+				<div class="col-sm-4">
+					<input type="date" id="fecha-nacimiento" class="form-control"
+						th:field="*{fechaNacimiento}" th:errorclass="'is-invalid'">
+					<small class="form-text text-danger"
+						th:if="${#fields.hasErrors('fechaNacimiento')}"
+						th:errors="*{fechaNacimiento}"></small>
+				</div>
+
+			</div>
+			
+			<div class="form-group row mb-2">
+				<label for="file" class="col-form-label col-sm-2">Foto: </label>
+				<div class="col-sm-4">
+					<input type="file" id="file" class="form-control" name="file">
+						<!-- th:field="*{fechaNacimiento}" th:errorclass="'is-invalid'">
+					<small class="form-text text-danger"
+						th:if="${#fields.hasErrors('fechaNacimiento')}"
+						th:errors="*{fechaNacimiento}"></small> -->
+				</div>
+
+			</div>
+
+
+			<div class="form-group row mb-2 my-3">
+				<div>
+					<input class="btn btn-primary" type="submit" th:value="${value}">
+				</div>
+			</div>
+
+		</form>
+	</div>
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

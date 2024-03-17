@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head th:replace="layout/layout :: head">
+</head>
+<body>
+	<header th:replace="layout/layout :: header"> </header>
+	<div class="container">
+		<h1 th:text="${title}" class="text-primary"></h1>
+
+		<a th:href="@{/clientes/form}" class="btn btn-primary my-2">Crear
+			Cliente</a>
+		<table class="table table-striped text-center">
+			<thead>
+				<tr>
+
+					<th>Id</th>
+					<th>Nombre</th>
+					<th>Apellido Paterno</th>
+					<th>Apellido Materno</th>
+					<th>Email</th>
+					<th>Fecha Nacimiento</th>
+					<th></th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr th:each="cliente : ${clientes}" th:object="${cliente}">
+					<td th:text="*{id}"></td>
+					<td th:text="*{nombre}"></td>
+					<td th:text="*{apellidoPaterno}"></td>
+					<td th:text="*{apellidoMaterno}"></td>
+					<td th:text="*{email}"></td>
+					<td th:text="*{#temporals.format(fechaNacimiento, 'dd/MM/yyyy')}"></td>
+					<td><a class=""
+						th:href="@{/clientes/ver/} + *{id}">
+						<i ><img th:src="@{/images/view.png}" alt="view"></i>
+						</a></td>
+					<td><a class="btn btn-primary btn-xs"
+						th:href="@{/clientes/editar/} + *{id}" th:text="'Editar'"></a></td>
+					<td><a class="btn btn-danger btn-xs"
+						th:href="@{/clientes/eliminar/} + *{id}" th:text="'Eliminar'"></a></td>
+				</tr>
+			</tbody>
+
+		</table>
+		<nav th:replace="paginator-nav :: paginator"></nav>
+	</div>
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
